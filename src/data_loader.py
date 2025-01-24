@@ -5,6 +5,7 @@ import h5py
 import time
 import matplotlib.pyplot as plt
 import pandas as pd
+import math
 
 def load_network_data(file, network_key):
     with h5py.File(file, 'r') as f:
@@ -40,45 +41,75 @@ def create_dataset(file, seq_length=24):
                         random_values = np.random.uniform(0.5, 1.5, size=(33,1))
                         random_loads = loads * np.hstack((random_values, random_values))
                         bus_class = static_data['bus'][:,3]
+                        node_values = (np.arange(33).reshape(-1,1))
                         node_features = np.hstack((random_loads, bus_class.reshape(-1,1), mode))
+                        node_total_data = np.hstack((node_values, random_loads, bus_class.reshape(-1,1), mode))
 
-                        load_sorted = np.argsort(node_features[:, 0])[::-1]
-                        print(node_features)
-                        print(node_features[load_sorted])
+                        # we sort the loads by higher demand per node
+                        load_sorted = np.argsort(node_features[:, 0])[::-1] 
+                        sorted_array = node_total_data[load_sorted]
+                        # amount of classes
+                        _, counts = np.unique(sorted_array[:, 3], return_counts=True)
 
-                        match mode[0]:
-                            case 0:
-                                selections = {1.0: 5, 2.0: 5, 3.0: 2}
-                                for value, count in selections.items():
-                                    return
-                                # priority_target = 
-                                return
-                            case 1:
-                                return
-                            case 2:
-                                return
+                        priority_target = np.zeros(33)
+                        # from which 40 % is industrial, 30% commercial and 30% residential
+                        if mode[0] == 0:
+                            com_total = 33
+                            num_ind, num_com, num_res = math.floor(com_total * 0.40), math.floor(com_total * 0.30), math.floor(com_total * 0.30)
+                            low_prio = sorted_array[sorted_array[:, 3] == 1]
+                            med_prio = sorted_array[sorted_array[:, 3] == 2]
+                            high_prio = sorted_array[sorted_array[:, 3] == 3]
+
+                            priority_target[low_prio[:num_res, 0].astype(int)] = 1
+                            priority_target[med_prio[:num_com, 0].astype(int)] = 2
+                            priority_target[high_prio[:num_ind, 0].astype(int)] = 3
+
+
+                        elif mode[0] == 1:
+                            com_total = 20 
+                            num_ind, num_com, num_res = math.floor(com_total * 0.40), math.floor(com_total * 0.30), math.floor(com_total * 0.30)
+                            low_prio = sorted_array[sorted_array[:, 3] == 1]
+                            med_prio = sorted_array[sorted_array[:, 3] == 2]
+                            high_prio = sorted_array[sorted_array[:, 3] == 3]
+
+                            priority_target[low_prio[:num_res, 0].astype(int)] = 1
+                            priority_target[med_prio[:num_com, 0].astype(int)] = 2
+                            priority_target[high_prio[:num_ind, 0].astype(int)] = 3
+
+                        elif mode[0] == 2:
+                            com_total = 20 
+                            num_ind, num_com, num_res = math.floor(com_total * 0.40), math.floor(com_total * 0.30), math.floor(com_total * 0.30)
+                            low_prio = sorted_array[sorted_array[:, 3] == 1]
+                            med_prio = sorted_array[sorted_array[:, 3] == 2]
+                            high_prio = sorted_array[sorted_array[:, 3] == 3]
+
+                            priority_target[low_prio[:num_res, 0].astype(int)] = 1
+                            priority_target[med_prio[:num_com, 0].astype(int)] = 2
+                            priority_target[high_prio[:num_ind, 0].astype(int)] = 3
+
 
                         # Create edge index (remains constant for all time steps)
                         edge_index = np.vstack((static_data['line'][:, 0], static_data['line'][:, 1])).astype(int)
                         edge_features = static_data['line'][:, 2:5]  # Edge attributes (x, r, length)
-
+                        
                         # Convert to torch tensors
                         edge_index = torch.tensor(edge_index, dtype=torch.long)
                         edge_features = torch.tensor(edge_features, dtype=torch.float)
-                                            
+                                           
                         #     # Convert to tensors
                         target = torch.tensor(priority_target, dtype=torch.float)  # Target as scalar float
-
+                        
                         # Create the Data object
                         data = Data(
-                            x=node_feature_sequence,
+                            x=target,
                             edge_index=edge_index,
                             edge_attr=edge_features,
                             target = target,
                         )
                         
                         data_list.append(data)
-
+                        
+        print(data_list)
         return data_list
 
 create_dataset("data/priority_dataset.h5")

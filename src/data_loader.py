@@ -109,7 +109,7 @@ def create_dataset(file, seq_length=24):
                         
                         data_list.append(data)
                         
-        print(data_list)
+        print(len(data_list))
         return data_list
 
 create_dataset("data/priority_dataset.h5")

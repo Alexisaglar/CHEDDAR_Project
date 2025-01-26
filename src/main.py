@@ -1,31 +1,37 @@
+from model.GAT import GATModule
 import torch
 import torch.nn
 from torch_geometric.loader import DataLoader
 from sklearn.model_selection import train_test_split
 from src.train import train_model
 from src.test import evaluate_model
+from src.data_loader import create_dataset
 import matplotlib.pyplot as plt
 
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    data_list = create_dataset("data/cheddar_priority.h5") 
+    data_list = create_dataset("data/priority_dataset.h5") 
     train_data, temp_data = train_test_split(data_list, test_size = 0.3, random_state=42)
     val_data, test_data = train_test_split(temp_data, test_size = 0.5, random_state = 42)
 
-    model = STGAT(input_channels, hidden_channels, output_channels, heads).to(device)
-    model = model.to.device()
+    input_channels = 4
+    hidden_channels = 128
+    output_channels = 4
+    heads = 4
+    model = GATModule(input_channels, hidden_channels, output_channels, heads).to(device)
+    # model = model.to.device()
 
-    optimizer = torch.optim.adam(model.parameters(), lr=0.0001)
-    criterion = torch.nn.MSELoss()
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+    criterion = torch.nn.CrossEntropyLoss()
     
     num_epochs = 100
-    best_val_loss = float(inf)
+    best_val_loss = float("inf")
 
     train_losses = []
     test_losses = []
     for epoch in range(num_epochs):
         train_loss = train_model(model, train_data, criterion, optimizer, device)
-        val_loss = test_model(model, val_data, criterion, device)
+        val_loss = evaluate_model(model, val_data, criterion, device)
 
         # train_losses.append(train_loss)
         # val_losses.append(val_loss)
@@ -45,6 +51,6 @@ def main():
     plt.savefig("results/loss_plot_GCN.png")
     plt.show()
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     main()
 

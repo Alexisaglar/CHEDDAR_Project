@@ -97,11 +97,12 @@ def create_dataset(file, seq_length=24):
                         edge_features = torch.tensor(edge_features, dtype=torch.float)
                                            
                         #     # Convert to tensors
-                        target = torch.tensor(priority_target, dtype=torch.float)  # Target as scalar float
+                        target = torch.tensor(priority_target, dtype=torch.long)  # Target as scalar float
+                        node_features = torch.tensor(node_features, dtype=torch.float)  # Target as scalar float
                         
                         # Create the Data object
                         data = Data(
-                            x=target,
+                            x=node_features,
                             edge_index=edge_index,
                             edge_attr=edge_features,
                             target = target,
@@ -109,7 +110,7 @@ def create_dataset(file, seq_length=24):
                         
                         data_list.append(data)
                         
-        print(len(data_list))
+        # print(data_list)
         return data_list
 
-create_dataset("data/priority_dataset.h5")
+# create_dataset("data/priority_dataset.h5")

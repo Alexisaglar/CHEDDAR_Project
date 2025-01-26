@@ -10,7 +10,7 @@ def train_model(model, data, criterion, optimizer, device):
         optimizer.zero_grad()
 
         target_predicted = model(batch)
-        target = data.y.to(device).squeeze()
+        target = batch.target.to(device).squeeze()
 
         loss = criterion(target_predicted.squeeze(), target)
 

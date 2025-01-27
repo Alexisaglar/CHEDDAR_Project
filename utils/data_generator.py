@@ -5,12 +5,14 @@ import numpy as np
 # Simulate node values and classes
 def generate_data(num_nodes, previous_data=None):
     classes = ["Residential", "Commercial", "Industrial"]  # Possible classes
+    priority = ["High", "Medium", "Low"]  # Possible classes
     if previous_data is None:
         # Start with random values and assign random classes if there's no previous data
         return {
             str(i): {
                 "value": np.random.rand() * 100,
-                "class": np.random.choice(classes)
+                "class": np.random.choice(classes),
+                "priority": np.random.choice(priority)
             }
             for i in range(num_nodes)
         }
@@ -19,7 +21,8 @@ def generate_data(num_nodes, previous_data=None):
         return {
             str(i): {
                 "value": max(200, min(220, previous_data[str(i)]["value"] + np.random.uniform(-10, 10))),
-                "class": previous_data[str(i)]["class"]
+                # "class": previous_data[str(i)]["class"],
+                "priority": previous_data[str(i)]["priority"]
             }
             for i in range(num_nodes)
         }

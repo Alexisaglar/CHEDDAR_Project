@@ -1,1 +1,201 @@
-{"0": {"value": 208.47157759357975, "class": "Industrial"}, "1": {"value": 208.0369018167653, "class": "Commercial"}, "2": {"value": 211.71539737007248, "class": "Residential"}, "3": {"value": 210.28896332782108, "class": "Commercial"}, "4": {"value": 200, "class": "Residential"}, "5": {"value": 200.8624708906994, "class": "Residential"}, "6": {"value": 220, "class": "Residential"}, "7": {"value": 211.29873354400667, "class": "Residential"}, "8": {"value": 207.31050571123518, "class": "Industrial"}, "9": {"value": 201.2003377192636, "class": "Industrial"}, "10": {"value": 220, "class": "Industrial"}, "11": {"value": 220, "class": "Industrial"}, "12": {"value": 200, "class": "Residential"}, "13": {"value": 217.15146955499574, "class": "Industrial"}, "14": {"value": 209.17171774077556, "class": "Industrial"}, "15": {"value": 220, "class": "Commercial"}, "16": {"value": 202.28264532857668, "class": "Industrial"}, "17": {"value": 212.59788612839844, "class": "Industrial"}, "18": {"value": 213.02781485903344, "class": "Commercial"}, "19": {"value": 214.8734218175253, "class": "Residential"}, "20": {"value": 206.7083160568032, "class": "Commercial"}, "21": {"value": 220, "class": "Industrial"}, "22": {"value": 215.92571321053964, "class": "Commercial"}, "23": {"value": 201.26735950829496, "class": "Industrial"}, "24": {"value": 220, "class": "Residential"}, "25": {"value": 205.27693905206212, "class": "Residential"}, "26": {"value": 220, "class": "Industrial"}, "27": {"value": 207.75717032150538, "class": "Residential"}, "28": {"value": 202.33232408389537, "class": "Residential"}, "29": {"value": 204.29421465343654, "class": "Commercial"}, "30": {"value": 220, "class": "Residential"}, "31": {"value": 220, "class": "Residential"}, "32": {"value": 220, "class": "Industrial"}}
+{
+  "comm_mode": 2,
+  "1": {
+    "voltage": 0.9796,
+    "load": 0.617,
+    "class": "Commercial",
+    "priority": "Low"
+  },
+  "2": {
+    "voltage": 1.0161,
+    "load": 0.389,
+    "class": "Industrial",
+    "priority": "High"
+  },
+  "3": {
+    "voltage": 1.0665,
+    "load": 1.556,
+    "class": "Industrial",
+    "priority": "Medium"
+  },
+  "4": {
+    "voltage": 1.003,
+    "load": 0.719,
+    "class": "Commercial",
+    "priority": "Low"
+  },
+  "5": {
+    "voltage": 1.0953,
+    "load": 1.667,
+    "class": "Industrial",
+    "priority": "Low"
+  },
+  "6": {
+    "voltage": 0.9838,
+    "load": 0.958,
+    "class": "Residential",
+    "priority": "High"
+  },
+  "7": {
+    "voltage": 1.0,
+    "load": 0.363,
+    "class": "Residential",
+    "priority": "Medium"
+  },
+  "8": {
+    "voltage": 1.0406,
+    "load": 0.683,
+    "class": "Industrial",
+    "priority": "High"
+  },
+  "9": {
+    "voltage": 1.0887,
+    "load": 0.014,
+    "class": "Residential",
+    "priority": "Low"
+  },
+  "10": {
+    "voltage": 1.0694,
+    "load": 0.992,
+    "class": "Industrial",
+    "priority": "Medium"
+  },
+  "11": {
+    "voltage": 1.0594,
+    "load": 0.216,
+    "class": "Industrial",
+    "priority": "Medium"
+  },
+  "12": {
+    "voltage": 0.9817,
+    "load": 1.218,
+    "class": "Commercial",
+    "priority": "Medium"
+  },
+  "13": {
+    "voltage": 0.9992,
+    "load": 0.661,
+    "class": "Residential",
+    "priority": "Medium"
+  },
+  "14": {
+    "voltage": 1.0185,
+    "load": 0.807,
+    "class": "Commercial",
+    "priority": "Medium"
+  },
+  "15": {
+    "voltage": 0.9544,
+    "load": 0.734,
+    "class": "Industrial",
+    "priority": "Low"
+  },
+  "16": {
+    "voltage": 1.043,
+    "load": 0.574,
+    "class": "Residential",
+    "priority": "High"
+  },
+  "17": {
+    "voltage": 1.0934,
+    "load": 1.428,
+    "class": "Industrial",
+    "priority": "High"
+  },
+  "18": {
+    "voltage": 0.9071,
+    "load": 1.227,
+    "class": "Residential",
+    "priority": "Low"
+  },
+  "19": {
+    "voltage": 0.9962,
+    "load": 0.97,
+    "class": "Residential",
+    "priority": "Medium"
+  },
+  "20": {
+    "voltage": 0.9581,
+    "load": 1.114,
+    "class": "Commercial",
+    "priority": "High"
+  },
+  "21": {
+    "voltage": 1.0152,
+    "load": 1.039,
+    "class": "Commercial",
+    "priority": "High"
+  },
+  "22": {
+    "voltage": 1.0813,
+    "load": 0.615,
+    "class": "Industrial",
+    "priority": "Medium"
+  },
+  "23": {
+    "voltage": 0.9685,
+    "load": 0.585,
+    "class": "Residential",
+    "priority": "High"
+  },
+  "24": {
+    "voltage": 0.9,
+    "load": 0.414,
+    "class": "Residential",
+    "priority": "Medium"
+  },
+  "25": {
+    "voltage": 1.0394,
+    "load": 0.317,
+    "class": "Residential",
+    "priority": "Medium"
+  },
+  "26": {
+    "voltage": 1.0817,
+    "load": 0.223,
+    "class": "Industrial",
+    "priority": "Medium"
+  },
+  "27": {
+    "voltage": 1.0555,
+    "load": 0.518,
+    "class": "Commercial",
+    "priority": "High"
+  },
+  "28": {
+    "voltage": 0.9455,
+    "load": 0.557,
+    "class": "Residential",
+    "priority": "High"
+  },
+  "29": {
+    "voltage": 1.0032,
+    "load": 0.411,
+    "class": "Industrial",
+    "priority": "High"
+  },
+  "30": {
+    "voltage": 0.9387,
+    "load": 1.145,
+    "class": "Residential",
+    "priority": "Low"
+  },
+  "31": {
+    "voltage": 0.9574,
+    "load": 0.552,
+    "class": "Residential",
+    "priority": "Low"
+  },
+  "32": {
+    "voltage": 0.991,
+    "load": 1.552,
+    "class": "Residential",
+    "priority": "Low"
+  },
+  "33": {
+    "voltage": 1.0435,
+    "load": 1.528,
+    "class": "Commercial",
+    "priority": "Medium"
+  }
+}

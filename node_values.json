@@ -1,201 +1,201 @@
 {
-  "comm_mode": 2,
   "1": {
-    "voltage": 0.9796,
-    "load": 0.617,
-    "class": "Commercial",
-    "priority": "Low"
+    "class": "slack",
+    "priority": "N/A",
+    "voltage": 0.5294979214668274,
+    "load": 0.6769976019859314
   },
   "2": {
-    "voltage": 1.0161,
-    "load": 0.389,
-    "class": "Industrial",
-    "priority": "High"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.22321391105651855,
+    "load": 0.6266272068023682
   },
   "3": {
-    "voltage": 1.0665,
-    "load": 1.556,
-    "class": "Industrial",
-    "priority": "Medium"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.9781837463378906,
+    "load": 0.4825989603996277
   },
   "4": {
-    "voltage": 1.003,
-    "load": 0.719,
-    "class": "Commercial",
-    "priority": "Low"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.11413192749023438,
+    "load": 0.9356561899185181
   },
   "5": {
-    "voltage": 1.0953,
-    "load": 1.667,
-    "class": "Industrial",
-    "priority": "Low"
+    "class": "commercial",
+    "priority": "N/A",
+    "voltage": 0.14944112300872803,
+    "load": 0.4391326308250427
   },
   "6": {
-    "voltage": 0.9838,
-    "load": 0.958,
-    "class": "Residential",
-    "priority": "High"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.03922891616821289,
+    "load": 0.9253740906715393
   },
   "7": {
-    "voltage": 1.0,
-    "load": 0.363,
-    "class": "Residential",
-    "priority": "Medium"
+    "class": "industrial",
+    "priority": "High",
+    "voltage": 0.027857959270477295,
+    "load": 0.5782220363616943
   },
   "8": {
-    "voltage": 1.0406,
-    "load": 0.683,
-    "class": "Industrial",
-    "priority": "High"
+    "class": "industrial",
+    "priority": "High",
+    "voltage": 0.23678255081176758,
+    "load": 0.7979261875152588
   },
   "9": {
-    "voltage": 1.0887,
-    "load": 0.014,
-    "class": "Residential",
-    "priority": "Low"
+    "class": "industrial",
+    "priority": "High",
+    "voltage": 0.9301580786705017,
+    "load": 0.030861318111419678
   },
   "10": {
-    "voltage": 1.0694,
-    "load": 0.992,
-    "class": "Industrial",
-    "priority": "Medium"
+    "class": "commercial",
+    "priority": "Medium",
+    "voltage": 0.21158015727996826,
+    "load": 0.9007139801979065
   },
   "11": {
-    "voltage": 1.0594,
-    "load": 0.216,
-    "class": "Industrial",
-    "priority": "Medium"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.3556610345840454,
+    "load": 0.24236023426055908
   },
   "12": {
-    "voltage": 0.9817,
-    "load": 1.218,
-    "class": "Commercial",
-    "priority": "Medium"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.06637662649154663,
+    "load": 0.7464370727539062
   },
   "13": {
-    "voltage": 0.9992,
-    "load": 0.661,
-    "class": "Residential",
-    "priority": "Medium"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.30305570363998413,
+    "load": 0.5404437184333801
   },
   "14": {
-    "voltage": 1.0185,
-    "load": 0.807,
-    "class": "Commercial",
-    "priority": "Medium"
+    "class": "commercial",
+    "priority": "Medium",
+    "voltage": 0.0714307427406311,
+    "load": 0.9990136623382568
   },
   "15": {
-    "voltage": 0.9544,
-    "load": 0.734,
-    "class": "Industrial",
-    "priority": "Low"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.5356908440589905,
+    "load": 0.862655758857727
   },
   "16": {
-    "voltage": 1.043,
-    "load": 0.574,
-    "class": "Residential",
-    "priority": "High"
+    "class": "industrial",
+    "priority": "High",
+    "voltage": 0.19072705507278442,
+    "load": 0.6204996705055237
   },
   "17": {
-    "voltage": 1.0934,
-    "load": 1.428,
-    "class": "Industrial",
-    "priority": "High"
+    "class": "industrial",
+    "priority": "High",
+    "voltage": 0.15873658657073975,
+    "load": 0.3400549292564392
   },
   "18": {
-    "voltage": 0.9071,
-    "load": 1.227,
-    "class": "Residential",
-    "priority": "Low"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.5577422976493835,
+    "load": 0.813146710395813
   },
   "19": {
-    "voltage": 0.9962,
-    "load": 0.97,
-    "class": "Residential",
-    "priority": "Medium"
+    "class": "commercial",
+    "priority": "Medium",
+    "voltage": 0.7931788563728333,
+    "load": 0.2856663465499878
   },
   "20": {
-    "voltage": 0.9581,
-    "load": 1.114,
-    "class": "Commercial",
-    "priority": "High"
+    "class": "commercial",
+    "priority": "Medium",
+    "voltage": 0.15173077583312988,
+    "load": 0.17139708995819092
   },
   "21": {
-    "voltage": 1.0152,
-    "load": 1.039,
-    "class": "Commercial",
-    "priority": "High"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.3868120312690735,
+    "load": 0.5596261620521545
   },
   "22": {
-    "voltage": 1.0813,
-    "load": 0.615,
-    "class": "Industrial",
-    "priority": "Medium"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.0426289439201355,
+    "load": 0.550333559513092
   },
   "23": {
-    "voltage": 0.9685,
-    "load": 0.585,
-    "class": "Residential",
-    "priority": "High"
+    "class": "industrial",
+    "priority": "High",
+    "voltage": 0.4250834584236145,
+    "load": 0.08543413877487183
   },
   "24": {
-    "voltage": 0.9,
-    "load": 0.414,
-    "class": "Residential",
-    "priority": "Medium"
+    "class": "commercial",
+    "priority": "Medium",
+    "voltage": 0.6863313913345337,
+    "load": 0.8709510564804077
   },
   "25": {
-    "voltage": 1.0394,
-    "load": 0.317,
-    "class": "Residential",
-    "priority": "Medium"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.8522536754608154,
+    "load": 0.6580939292907715
   },
   "26": {
-    "voltage": 1.0817,
-    "load": 0.223,
-    "class": "Industrial",
-    "priority": "Medium"
+    "class": "industrial",
+    "priority": "High",
+    "voltage": 0.5437788367271423,
+    "load": 0.48639947175979614
   },
   "27": {
-    "voltage": 1.0555,
-    "load": 0.518,
-    "class": "Commercial",
-    "priority": "High"
+    "class": "commercial",
+    "priority": "Medium",
+    "voltage": 0.5501165390014648,
+    "load": 0.6645853519439697
   },
   "28": {
-    "voltage": 0.9455,
-    "load": 0.557,
-    "class": "Residential",
-    "priority": "High"
+    "class": "industrial",
+    "priority": "High",
+    "voltage": 0.18427544832229614,
+    "load": 0.5577013492584229
   },
   "29": {
-    "voltage": 1.0032,
-    "load": 0.411,
-    "class": "Industrial",
-    "priority": "High"
+    "class": "commercial",
+    "priority": "N/A",
+    "voltage": 0.03653979301452637,
+    "load": 0.21840661764144897
   },
   "30": {
-    "voltage": 0.9387,
-    "load": 1.145,
-    "class": "Residential",
-    "priority": "Low"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.0796012282371521,
+    "load": 0.34213751554489136
   },
   "31": {
-    "voltage": 0.9574,
-    "load": 0.552,
-    "class": "Residential",
-    "priority": "Low"
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.6324722170829773,
+    "load": 0.4563782811164856
   },
   "32": {
-    "voltage": 0.991,
-    "load": 1.552,
-    "class": "Residential",
-    "priority": "Low"
+    "class": "commercial",
+    "priority": "Medium",
+    "voltage": 0.6072319746017456,
+    "load": 0.6935380697250366
   },
   "33": {
-    "voltage": 1.0435,
-    "load": 1.528,
-    "class": "Commercial",
-    "priority": "Medium"
-  }
+    "class": "residential",
+    "priority": "Low",
+    "voltage": 0.7979920506477356,
+    "load": 0.6650347113609314
+  },
+  "comm_mode": 0
 }

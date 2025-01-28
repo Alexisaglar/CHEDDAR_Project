@@ -5,6 +5,7 @@ import time
 import numpy as np
 from matplotlib.animation import FuncAnimation
 import matplotlib.patches as mpatches
+from matplotlib.widgets import Button  # <--- IMPORTANT
 
 plt.style.use('seaborn-v0_8-darkgrid')
 
@@ -42,9 +43,9 @@ default_priority_color = "gray"
 
 # Bus class -> marker shape
 class_shape_map = {
-    "Residential": "o",   # circle
-    "Commercial": "s",    # square
-    "Industrial": "^",    # triangle
+    "sesidential": "o",   # circle
+    "commercial": "s",    # square
+    "industrial": "^",    # triangle
 }
 default_class_shape = "o"  # fallback shape
 
@@ -72,7 +73,9 @@ for n in G.nodes():
 # 4) PREPARE MATPLOTLIB FIGURE
 
 fig, ax = plt.subplots(figsize=(14, 8))
-ax.set_title("33-Bus System: Priority‐Colored Nodes, Class Shapes", fontsize=16)
+# ax.imshow(img, extent=[-20,20,-10,10])
+ax.set_facecolor("white")
+ax.set_title("33-Bus Smart Grid System", fontsize=16)
 
 nx.draw_networkx_edges(G, pos, edge_color="gray", alpha=0.8, ax=ax)
 
@@ -220,6 +223,54 @@ def update(frame):
 # 8) RUN THE ANIMATION
 ani = FuncAnimation(fig, update, interval=2000)
 
+# --- BUTTON CODE STARTS HERE ---
+# Create an axis for our "Toggle Mode" button
+button_ax = fig.add_axes([0.8, 0.02, 0.1, 0.05])
+# Create the Button
+comm_button = Button(
+    button_ax,
+    "Toggle Mode",
+    # color="#EAEAF2",       # match the seaborn background or your preference
+    hovercolor="#D0D0D0"
+)
+
+# comm_button.ax.set_frame_on(True)
+
+for spine in comm_button.ax.spines.values():
+    spine.set_edgecolor('black')  # border color
+    spine.set_linewidth(1)        # border thickness
+# Adjust the label style
+comm_button.label.set_fontsize(9)
+comm_button.label.set_color("black")
+def toggle_mode(event):
+    global global_comm_mode
+    
+    # 1) Load the current JSON (if it exists)
+    try:
+        with open(file_path, "r") as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        data = {}
+
+    # 2) Cycle the mode 0 -> 1 -> 2 -> 0
+    global_comm_mode = (global_comm_mode + 1) % 3
+    
+    # 3) Update the JSON with the new comm_mode
+    data["comm_mode"] = global_comm_mode
+
+    # 4) Write the JSON file back to disk
+    with open(file_path, "w") as f:
+        json.dump(data, f, indent=2)
+
+    # 5) Update the text in the corner immediately
+    comm_text_box.set_text(f"Comm Mode: {global_comm_mode}")
+
+    # (Optional) Debug print
+    print(f"Button clicked! Updated comm_mode -> {global_comm_mode}")
+
+# Register the callback
+comm_button.on_clicked(toggle_mode)
+
 plt.axis('off')
-plt.tight_layout()
+# plt.tight_layout()
 plt.show()

@@ -77,7 +77,7 @@ def create_dataset(file, seq_length=24):
                             priority_target[high_prio[:num_ind, 0].astype(int)] = 3
 
                         elif mode[0] == 2:
-                            com_total = 20 
+                            com_total = 10 
                             num_ind, num_com, num_res = math.floor(com_total * 0.40), math.floor(com_total * 0.30), math.floor(com_total * 0.30)
                             low_prio = sorted_array[sorted_array[:, 3] == 1]
                             med_prio = sorted_array[sorted_array[:, 3] == 2]

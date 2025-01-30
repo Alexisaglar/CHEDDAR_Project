@@ -43,10 +43,10 @@ default_priority_color = "gray"
 
 # Bus class -> marker shape
 class_shape_map = {
-    "Slack": "H",   # circle
-    "Residential": "o",   # circle
-    "Commercial": "s",    # square
-    "Industrial": "^",    # triangle
+    "slack": "H",   # circle
+    "residential": "o",   # circle
+    "commercial": "s",    # square
+    "industrial": "^",    # triangle
 }
 default_class_shape = "o"  # fallback shape
 
@@ -74,9 +74,8 @@ for n in G.nodes():
 # 4) PREPARE MATPLOTLIB FIGURE
 
 fig, ax = plt.subplots(figsize=(14, 8))
-# ax.imshow(img, extent=[-20,20,-10,10])
 ax.set_facecolor("white")
-ax.set_title("33-Bus Smart Grid System", fontsize=16)
+ax.set_title("33-Bus Smart Grid System", fontsize=30)
 
 nx.draw_networkx_edges(G, pos, edge_color="gray", alpha=0.8, ax=ax)
 
@@ -117,11 +116,10 @@ for cls_name, nodes_in_class in class_groups.items():
     for i, n in enumerate(nodes_in_class):
         node_to_scatter_idx[n] = (cls_name, i)
         x, y = pos[n]
-        # We'll show Bus ID, Voltage, and Load in the label— but NO Priority line
         label = ax.text(
             x, y + 0.03,
             f"Bus {n}\nV=?\nLoad=?",
-            fontsize=8,
+            fontsize=14,
             color="black",
             ha="center",
             va="bottom",
@@ -137,8 +135,8 @@ class_legend = ax.legend(
     handles=[scatter_dict[k] for k in scatter_dict],
     loc="upper right",
     title="Bus Class (shapes)",
-    fontsize=9,
-    labelspacing=1.5  # <--- extra spacing to avoid overlap
+    fontsize=14,
+    labelspacing=1.5
 )
 ax.add_artist(class_legend)
 
@@ -151,18 +149,18 @@ priority_patches = [
 ]
 priority_legend = ax.legend(
     handles=priority_patches,
-    loc="center right",
+    loc="upper left",
     title="Node Priority",
-    fontsize=9
+    fontsize=14
 )
 ax.add_artist(priority_legend)
 
 # Communication mode in a corner
 comm_text_box = ax.text(
-    0.02, 0.95, 
+    0.7, 0.95, 
     f"Comm Mode: {global_comm_mode}",
     transform=ax.transAxes,
-    fontsize=12,
+    fontsize=25,
     color="purple",
     bbox=dict(facecolor='white', alpha=0.7, boxstyle='round,pad=0.3')
 )
@@ -182,14 +180,15 @@ def update(frame):
     new_comm_mode = data.get("comm_mode", global_comm_mode)
     if new_comm_mode != global_comm_mode:
         global_comm_mode = new_comm_mode
-    comm_text_box.set_text(f"Comm Mode: {global_comm_mode}")
+    comm_text_box.set_text(f"Comm Capacity: {global_comm_mode}")
 
     for n in G.nodes():
         node_str = str(n)
         node_info = data.get(node_str, {})
 
         voltage = float(node_info.get("voltage", 1.0))
-        load = float(node_info.get("load", 0.5))
+        active_power = float(node_info.get("active", 0.5))
+        reactive_power = float(node_info.get("reactive", 0.5))
         priority = node_info.get("priority", "Unknown")
 
         cls_name = node_classes[n]  # static class
@@ -204,14 +203,15 @@ def update(frame):
             face_arr[idx] = new_face_color
 
             # Scale size by load (optional)
-            new_size = 300 + 300*load
+            new_size = 300 + 300*active_power
             size_arr[idx] = new_size
 
         # Update text label WITHOUT the priority line
         text_labels[n].set_text(
             f"Bus {n}\n"
             f"V={voltage:.3f}\n"
-            f"Load={load:.2f}"
+            f"P={active_power:.2f}\n"
+            f"Q={reactive_power:.2f}\n"
         )
 
     # Push updated arrays back to each scatter
@@ -273,5 +273,5 @@ def toggle_mode(event):
 comm_button.on_clicked(toggle_mode)
 
 plt.axis('off')
-# plt.tight_layout()
+plt.tight_layout()
 plt.show()

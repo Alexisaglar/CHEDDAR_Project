@@ -1,234 +1,234 @@
 {
-  "comm_mode": 2,
   "1": {
-    "voltage": 1.0374,
-    "real_power": 1.0713,
-    "reactive_power": 1.0713,
-    "class": "Industrial",
-    "priority": "Low"
+    "voltage": 0.9999999403953552,
+    "active": 0,
+    "reactive": 0,
+    "priority": "N/A",
+    "class": "slack"
   },
   "2": {
-    "voltage": 1.0001,
-    "real_power": 1.1172,
-    "reactive_power": 1.1172,
-    "class": "Residential",
-    "priority": "High"
+    "voltage": 0.9970316886901855,
+    "active": 0.09972281008958817,
+    "reactive": 0.0600905679166317,
+    "priority": "Low",
+    "class": "residential"
   },
   "3": {
-    "voltage": 0.9846,
-    "real_power": 1.2357,
-    "reactive_power": 1.2357,
-    "class": "Residential",
-    "priority": "High"
+    "voltage": 0.9829338192939758,
+    "active": 0.0900219976902008,
+    "reactive": 0.03998715057969093,
+    "priority": "Low",
+    "class": "residential"
   },
   "4": {
-    "voltage": 0.9624,
-    "real_power": 0.913,
-    "reactive_power": 0.913,
-    "class": "Commercial",
-    "priority": "Low"
+    "voltage": 0.9754497408866882,
+    "active": 0.1199987605214119,
+    "reactive": 0.0799911767244339,
+    "priority": "Low",
+    "class": "residential"
   },
   "5": {
-    "voltage": 1.0311,
-    "real_power": 0.3474,
-    "reactive_power": 0.3474,
-    "class": "Industrial",
-    "priority": "Medium"
+    "voltage": 0.9680498838424683,
+    "active": 0.06000039353966713,
+    "reactive": 0.029996419325470924,
+    "priority": "Medium",
+    "class": "commercial"
   },
   "6": {
-    "voltage": 0.9744,
-    "real_power": 0.5655,
-    "reactive_power": 0.5655,
-    "class": "Commercial",
-    "priority": "Low"
+    "voltage": 0.9495489597320557,
+    "active": 0.06000032275915146,
+    "reactive": 0.01999722607433796,
+    "priority": "Low",
+    "class": "residential"
   },
   "7": {
-    "voltage": 1.0465,
-    "real_power": 1.2537,
-    "reactive_power": 1.2537,
-    "class": "Commercial",
-    "priority": "High"
+    "voltage": 0.9461159706115723,
+    "active": 0.20000141859054565,
+    "reactive": 0.09998779743909836,
+    "priority": "High",
+    "class": "industrial"
   },
   "8": {
-    "voltage": 0.959,
-    "real_power": 0.908,
-    "reactive_power": 0.908,
-    "class": "Commercial",
-    "priority": "High"
+    "voltage": 0.9412683844566345,
+    "active": 0.20000045001506805,
+    "reactive": 0.09998799115419388,
+    "priority": "High",
+    "class": "industrial"
   },
   "9": {
-    "voltage": 1.0079,
-    "real_power": 0.5821,
-    "reactive_power": 0.5821,
-    "class": "Commercial",
-    "priority": "High"
+    "voltage": 0.9349686503410339,
+    "active": 0.06000002846121788,
+    "reactive": 0.019997622817754745,
+    "priority": "High",
+    "class": "industrial"
   },
   "10": {
-    "voltage": 1.0114,
-    "real_power": 0.9125,
-    "reactive_power": 0.9125,
-    "class": "Commercial",
-    "priority": "High"
+    "voltage": 0.9291251301765442,
+    "active": 0.05999995768070221,
+    "reactive": 0.01999763399362564,
+    "priority": "Medium",
+    "class": "commercial"
   },
   "11": {
-    "voltage": 1.003,
-    "real_power": 0.8951,
-    "reactive_power": 0.8951,
-    "class": "Residential",
-    "priority": "Low"
+    "voltage": 0.9282649755477905,
+    "active": 0.04499999061226845,
+    "reactive": 0.029996464028954506,
+    "priority": "Low",
+    "class": "residential"
   },
   "12": {
-    "voltage": 0.9684,
-    "real_power": 0.6111,
-    "reactive_power": 0.6111,
-    "class": "Commercial",
-    "priority": "Low"
+    "voltage": 0.9267651438713074,
+    "active": 0.05999995023012161,
+    "reactive": 0.03499586880207062,
+    "priority": "Low",
+    "class": "residential"
   },
   "13": {
-    "voltage": 0.9502,
-    "real_power": 0.9534,
-    "reactive_power": 0.9534,
-    "class": "Commercial",
-    "priority": "Low"
+    "voltage": 0.9206318855285645,
+    "active": 0.059999965131282806,
+    "reactive": 0.03499586880207062,
+    "priority": "Low",
+    "class": "residential"
   },
   "14": {
-    "voltage": 1.0427,
-    "real_power": 1.2003,
-    "reactive_power": 1.2003,
-    "class": "Commercial",
-    "priority": "High"
+    "voltage": 0.9183608889579773,
+    "active": 0.11999993771314621,
+    "reactive": 0.07999055087566376,
+    "priority": "Medium",
+    "class": "commercial"
   },
   "15": {
-    "voltage": 1.0478,
-    "real_power": 1.443,
-    "reactive_power": 1.443,
-    "class": "Industrial",
-    "priority": "High"
+    "voltage": 0.9169472455978394,
+    "active": 0.059999991208314896,
+    "reactive": 0.009998813271522522,
+    "priority": "Low",
+    "class": "residential"
   },
   "16": {
-    "voltage": 1.0148,
-    "real_power": 0.8591,
-    "reactive_power": 0.8591,
-    "class": "Industrial",
-    "priority": "High"
+    "voltage": 0.9155885577201843,
+    "active": 0.059999991208314896,
+    "reactive": 0.01999763771891594,
+    "priority": "High",
+    "class": "industrial"
   },
   "17": {
-    "voltage": 1.0214,
-    "real_power": 0.8007,
-    "reactive_power": 0.8007,
-    "class": "Industrial",
-    "priority": "High"
+    "voltage": 0.9135556221008301,
+    "active": 0.059999994933605194,
+    "reactive": 0.01999763213098049,
+    "priority": "High",
+    "class": "industrial"
   },
   "18": {
-    "voltage": 0.985,
-    "real_power": 0.7525,
-    "reactive_power": 0.7525,
-    "class": "Commercial",
-    "priority": "Low"
+    "voltage": 0.9129507541656494,
+    "active": 0.08999999612569809,
+    "reactive": 0.03999526426196098,
+    "priority": "Low",
+    "class": "residential"
   },
   "19": {
-    "voltage": 1.0233,
-    "real_power": 1.0699,
-    "reactive_power": 1.0699,
-    "class": "Commercial",
-    "priority": "High"
+    "voltage": 0.9965032339096069,
+    "active": 0.09006904065608978,
+    "reactive": 0.039969172328710556,
+    "priority": "Medium",
+    "class": "commercial"
   },
   "20": {
-    "voltage": 0.9769,
-    "real_power": 0.854,
-    "reactive_power": 0.854,
-    "class": "Commercial",
-    "priority": "High"
+    "voltage": 0.9929242730140686,
+    "active": 0.08999839425086975,
+    "reactive": 0.03999602794647217,
+    "priority": "Medium",
+    "class": "commercial"
   },
   "21": {
-    "voltage": 0.9633,
-    "real_power": 0.2018,
-    "reactive_power": 0.2018,
-    "class": "Residential",
-    "priority": "Low"
+    "voltage": 0.9922138452529907,
+    "active": 0.09000101685523987,
+    "reactive": 0.039994969964027405,
+    "priority": "Low",
+    "class": "residential"
   },
   "22": {
-    "voltage": 0.9987,
-    "real_power": 1.2145,
-    "reactive_power": 1.2145,
-    "class": "Residential",
-    "priority": "Low"
+    "voltage": 0.9915751218795776,
+    "active": 0.09000245481729507,
+    "reactive": 0.03999437764286995,
+    "priority": "Low",
+    "class": "residential"
   },
   "23": {
-    "voltage": 1.0447,
-    "real_power": 1.0769,
-    "reactive_power": 1.0769,
-    "class": "Industrial",
-    "priority": "High"
+    "voltage": 0.9793479442596436,
+    "active": 0.08999761939048767,
+    "reactive": 0.04999511316418648,
+    "priority": "High",
+    "class": "industrial"
   },
   "24": {
-    "voltage": 0.9549,
-    "real_power": 0.5926,
-    "reactive_power": 0.5926,
-    "class": "Commercial",
-    "priority": "High"
+    "voltage": 0.9726579785346985,
+    "active": 0.42000338435173035,
+    "reactive": 0.1999751180410385,
+    "priority": "Medium",
+    "class": "commercial"
   },
   "25": {
-    "voltage": 1.0218,
-    "real_power": 0.815,
-    "reactive_power": 0.815,
-    "class": "Residential",
-    "priority": "Low"
+    "voltage": 0.9693132638931274,
+    "active": 0.42000046372413635,
+    "reactive": 0.1999761462211609,
+    "priority": "Low",
+    "class": "residential"
   },
   "26": {
-    "voltage": 0.9625,
-    "real_power": 1.2558,
-    "reactive_power": 1.2558,
-    "class": "Industrial",
-    "priority": "High"
+    "voltage": 0.9476191997528076,
+    "active": 0.060000382363796234,
+    "reactive": 0.024996943771839142,
+    "priority": "High",
+    "class": "industrial"
   },
   "27": {
-    "voltage": 1.0369,
-    "real_power": 0.4048,
-    "reactive_power": 0.4048,
-    "class": "Residential",
-    "priority": "Medium"
+    "voltage": 0.9450548887252808,
+    "active": 0.06000037491321564,
+    "reactive": 0.024996982887387276,
+    "priority": "Medium",
+    "class": "commercial"
   },
   "28": {
-    "voltage": 1.0145,
-    "real_power": 0.3095,
-    "reactive_power": 0.3095,
-    "class": "Commercial",
-    "priority": "High"
+    "voltage": 0.9335586428642273,
+    "active": 0.06000010669231415,
+    "reactive": 0.019997572526335716,
+    "priority": "High",
+    "class": "industrial"
   },
   "29": {
-    "voltage": 1.0417,
-    "real_power": 0.7952,
-    "reactive_power": 0.7952,
-    "class": "Commercial",
-    "priority": "Low"
+    "voltage": 0.9252446889877319,
+    "active": 0.12000010162591934,
+    "reactive": 0.06999167799949646,
+    "priority": "Medium",
+    "class": "commercial"
   },
   "30": {
-    "voltage": 0.975,
-    "real_power": 0.3067,
-    "reactive_power": 0.3067,
-    "class": "Industrial",
-    "priority": "Low"
+    "voltage": 0.9216861724853516,
+    "active": 0.19999974966049194,
+    "reactive": 0.5999290347099304,
+    "priority": "Low",
+    "class": "residential"
   },
   "31": {
-    "voltage": 1.0017,
-    "real_power": 0.856,
-    "reactive_power": 0.856,
-    "class": "Commercial",
-    "priority": "Low"
+    "voltage": 0.9174990653991699,
+    "active": 0.1499999761581421,
+    "reactive": 0.06999171525239944,
+    "priority": "Low",
+    "class": "residential"
   },
   "32": {
-    "voltage": 1.0194,
-    "real_power": 0.9189,
-    "reactive_power": 0.9189,
-    "class": "Commercial",
-    "priority": "High"
+    "voltage": 0.9165833592414856,
+    "active": 0.20999997854232788,
+    "reactive": 0.09998816251754761,
+    "priority": "Medium",
+    "class": "commercial"
   },
   "33": {
-    "voltage": 0.9586,
-    "real_power": 1.352,
-    "reactive_power": 1.352,
-    "class": "Residential",
-    "priority": "High"
-  }
+    "voltage": 0.9163002967834473,
+    "active": 0.059999991208314896,
+    "reactive": 0.03999526426196098,
+    "priority": "Low",
+    "class": "residential"
+  },
+  "comm_mode": 0
 }

@@ -8,8 +8,11 @@ import pandapower.networks as nw
 from torch_geometric.loader import DataLoader
 from torch_geometric.data import Data
 import pandas as pd
+from filelock import FileLock
 
 from utils.constants import CLASS_MAPPING, NODE_TYPE, PEAK_LOAD
+lock = FileLock("voltages_loads.json.lock")
+
 
 network = nw.case33bw()
 line_data = np.array(network.line[['from_bus', 'to_bus', 'length_km', 'r_ohm_per_km', 'x_ohm_per_km']])
@@ -23,33 +26,73 @@ priority_map = {
     3: 'High'
 }
 
+def get_mode(file_path):
+    mode = 0
+    with lock:
+        with open(file_path, 'r') as f:
+            data = json.load(f)  # Load the entire JSON object
+        mode = data.get('comm_mode', None)
+    return mode
+
+
 def get_live_data(file_path):
-    with open(file_path, 'r') as f:
-        data = json.load(f)  # Load the entire JSON object
-    voltage = [entry['voltage'] for key, entry in data.items() if key.isdigit()]
-    real_power = [entry['real_power'] for key, entry in data.items() if key.isdigit()]
-    reactive_power = [entry['reactive_power'] for key, entry in data.items() if key.isdigit()]
-    mode = data.get('comm_mode', None)
-    print(voltage)
-    return voltage, real_power, reactive_power, mode
+    with lock:
+        with open(file_path, 'r') as f:
+            data = json.load(f)  # Load the entire JSON object
+        voltage = [entry['voltage'] for key, entry in data.items() if key.isdigit()]
+        real_power = [entry['active'] for key, entry in data.items() if key.isdigit()]
+        reactive_power = [entry['reactive'] for key, entry in data.items() if key.isdigit()]
+        # mode = data.get('comm_mode', None)
+        # print(voltage)
+    return voltage, real_power, reactive_power
 
 def load_existing_data(file_path):
-    with open(file_path, 'r') as f:
-        return json.load(f)
+    with lock:
+        with open(file_path, 'r') as f:
+            return json.load(f)
 
-def update_priority(json_data, priority_labels):
+def update_priority(json_data, priority_labels, priority_indices, mode):
+    priority_indices = priority_indices.cpu().numpy()
+    sorted_indices = sorted(range(len(priority_indices)), key=lambda i: priority_indices[i])
+    sorted_indices = sorted_indices[::-1]
+    sorted_arr = [priority_indices[i] for i in sorted_indices]
+    print(sorted_arr)
+    # print(sorted_indices[::-1])
+    # print(sorted_indices)
+    # indexed_dict = {index: value for index, value in enumerate(priority_indices)}
+    # print(indexed_dict)
+    priority_truncated= np.zeros(33)
+    if mode == 0: capacity = 33
+    elif mode == 1: capacity = 21
+    else: capacity = 9 
+    temp_arr = []
+    print(sorted_indices)
+    
+    print(sorted_arr)
+    for i in range(capacity):
+        priority_truncated[sorted_indices[i]] = sorted_arr[i]
+
+    print(priority_truncated)
+    temp_arr = []
+    for i in range(len(priority_truncated)):
+        temp_arr.append(priority_map[priority_truncated[i]])
+    print( temp_arr )
+
     for i in range(33):
         node_id = str(i + 1)
         if node_id in json_data:
-            json_data[node_id]["priority"] = priority_labels[i]
+            json_data[node_id]["priority"] = temp_arr[i]
+            json_data[node_id]["class"] = NODE_TYPE[i]
         else:
             # Initialize node data if it doesn't exist
-            json_data[node_id] = {"priority": priority_labels[i]}
+            json_data[node_id] = {"priority": temp_arr[i]}
+            json_data[node_id]["class"] = NODE_TYPE[i]
     return json_data
 
 def save_json_data(file_path, data):
-    with open(file_path, "w") as f:
-        json.dump(data, f, indent=2)
+    with lock:
+        with open(file_path, "w") as f:
+            json.dump(data, f, indent=2)
 
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -63,22 +106,14 @@ def main():
         node_type = vectorized_mapping(NODE_TYPE)
 
         # Acquire live voltage and load
-        voltage, real_power, reactive_power, mode = get_live_data("node_values.json")
-
-        # Suppose you also have P, Q from somewhere, shape [33]
-        # load_data = network.load[['p_mw','q_mvar']]
-        # slack_bus_load = pd.DataFrame([[0, 0]], columns=['p_mw', 'q_mvar'])
-        # load_data = pd.concat([slack_bus_load, load_data], ignore_index=True)
-        # print(load_data)
-        # random_values = np.random.uniform(0.5, 1.5, size=(33,1))
-        # random_loads = load_data * np.hstack((random_values, random_values))
-        # random_loads = torch.tensor(random_loads.to_numpy(), dtype=torch.float)
+        voltage, real_power, reactive_power = get_live_data("voltages_loads.json")
+        mode = get_mode("node_values.json")
 
         real_power = np.array(real_power).reshape(-1,1)
         reactive_power = np.array(reactive_power).reshape(-1,1)
         load = np.hstack((real_power, reactive_power))
 
-        print(load)
+        # print(load)
         load = torch.tensor(load, dtype=torch.float)
         # Convert class_indices to float so we can stack
         # mode = get_mode("node_values.json")
@@ -93,7 +128,7 @@ def main():
 
         # print(random_loads.shape, node_type.shape, mode.shape)
         priority_input = torch.hstack([load, torch.tensor(node_type.reshape(-1,1)), mode])
-        print(priority_input.shape)
+        # print(priority_input.shape)
 
         data = Data(
             x=priority_input,
@@ -105,25 +140,25 @@ def main():
         priority_output = model(data)  # shape [33, #priority_classes]
         priority_indices = priority_output.argmax(dim=1)
         _, predicted_indices = torch.max(priority_output, dim=1)
-        print(priority_indices)
+        # print(priority_indices)
         priority_labels = [priority_map[idx.item()] for idx in priority_indices]
 
 
 
+        mode = int(mode.numpy()[0])
         # Load existing JSON data
-        json_data = load_existing_data("node_values.json")
+        json_data = load_existing_data("voltages_loads.json")
 
         # Update priority fields
-        json_data = update_priority(json_data, priority_labels)
+        json_data = update_priority(json_data, priority_labels, priority_indices, mode)
 
         # Update comm_mode
-        json_data["comm_mode"] = int(mode.numpy()[0])
-
+        json_data["comm_mode"] = mode 
         # Save updated JSON data
         save_json_data("node_values.json", json_data)
 
         # Small delay before next loop
-        time.sleep(2)
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()

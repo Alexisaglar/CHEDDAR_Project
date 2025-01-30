@@ -43,9 +43,10 @@ default_priority_color = "gray"
 
 # Bus class -> marker shape
 class_shape_map = {
-    "sesidential": "o",   # circle
-    "commercial": "s",    # square
-    "industrial": "^",    # triangle
+    "Slack": "H",   # circle
+    "Residential": "o",   # circle
+    "Commercial": "s",    # square
+    "Industrial": "^",    # triangle
 }
 default_class_shape = "o"  # fallback shape
 

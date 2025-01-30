@@ -16,13 +16,6 @@ line_data = np.array(network.line[['from_bus', 'to_bus', 'length_km', 'r_ohm_per
 # Example model loading (adapt as needed)
 classification_model = torch.load("data/STGAT_ATT.pt")
 priority_model = torch.load("data/best_priority_model.pt")
-# Classification is only needed once
-# class_input = torch.randn(24, 33, 2)
-# For the moment we are given a base class
-# class_output = classification_model(class_input)  # Suppose [1, 33] or [33]
-
-# class_map = ["Residential", "Commercial", "Industrial"]
-# class_labels = [class_map[idx.item()] for idx in class_indices]
 priority_map = {
     0: 'N/A',
     1: 'Low',
@@ -30,19 +23,33 @@ priority_map = {
     3: 'High'
 }
 
-def get_live_voltage_and_load():
-    # Replace this with real USRP reading / calculation
-    # Return two tensors: shape [33] for voltage, load
-    voltage = torch.rand(33)  # placeholder
-    load = torch.rand(33)     # placeholder
-    return voltage, load
+def get_live_data(file_path):
+    with open(file_path, 'r') as f:
+        data = json.load(f)  # Load the entire JSON object
+    voltage = [entry['voltage'] for key, entry in data.items() if key.isdigit()]
+    real_power = [entry['real_power'] for key, entry in data.items() if key.isdigit()]
+    reactive_power = [entry['reactive_power'] for key, entry in data.items() if key.isdigit()]
+    mode = data.get('comm_mode', None)
+    print(voltage)
+    return voltage, real_power, reactive_power, mode
 
-def get_mode(file_path):
-    with open(file_path, "r") as f:
-        data = json.load(f)
-        mode = 0
-        mode = data.get("comm_mode", mode)
-    return mode
+def load_existing_data(file_path):
+    with open(file_path, 'r') as f:
+        return json.load(f)
+
+def update_priority(json_data, priority_labels):
+    for i in range(33):
+        node_id = str(i + 1)
+        if node_id in json_data:
+            json_data[node_id]["priority"] = priority_labels[i]
+        else:
+            # Initialize node data if it doesn't exist
+            json_data[node_id] = {"priority": priority_labels[i]}
+    return json_data
+
+def save_json_data(file_path, data):
+    with open(file_path, "w") as f:
+        json.dump(data, f, indent=2)
 
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -56,19 +63,25 @@ def main():
         node_type = vectorized_mapping(NODE_TYPE)
 
         # Acquire live voltage and load
-        voltage, load = get_live_voltage_and_load()
+        voltage, real_power, reactive_power, mode = get_live_data("node_values.json")
 
         # Suppose you also have P, Q from somewhere, shape [33]
-        load_data = network.load[['p_mw','q_mvar']]
-        slack_bus_load = pd.DataFrame([[0, 0]], columns=['p_mw', 'q_mvar'])
-        load_data = pd.concat([slack_bus_load, load_data], ignore_index=True)
+        # load_data = network.load[['p_mw','q_mvar']]
+        # slack_bus_load = pd.DataFrame([[0, 0]], columns=['p_mw', 'q_mvar'])
+        # load_data = pd.concat([slack_bus_load, load_data], ignore_index=True)
         # print(load_data)
-        random_values = np.random.uniform(0.5, 1.5, size=(33,1))
-        random_loads = load_data * np.hstack((random_values, random_values))
-        random_loads = torch.tensor(random_loads.to_numpy(), dtype=torch.float)
+        # random_values = np.random.uniform(0.5, 1.5, size=(33,1))
+        # random_loads = load_data * np.hstack((random_values, random_values))
+        # random_loads = torch.tensor(random_loads.to_numpy(), dtype=torch.float)
 
+        real_power = np.array(real_power).reshape(-1,1)
+        reactive_power = np.array(reactive_power).reshape(-1,1)
+        load = np.hstack((real_power, reactive_power))
+
+        print(load)
+        load = torch.tensor(load, dtype=torch.float)
         # Convert class_indices to float so we can stack
-        mode = get_mode("node_values.json")
+        # mode = get_mode("node_values.json")
         mode = torch.tensor(np.full((33,), mode))  # e.g. 0,1,2
         mode = mode.reshape(-1,1)
 
@@ -79,7 +92,8 @@ def main():
         edge_features = torch.tensor(edge_features, dtype=torch.float)
 
         # print(random_loads.shape, node_type.shape, mode.shape)
-        priority_input = torch.hstack([random_loads, torch.tensor(node_type.reshape(-1,1)), mode])
+        priority_input = torch.hstack([load, torch.tensor(node_type.reshape(-1,1)), mode])
+        print(priority_input.shape)
 
         data = Data(
             x=priority_input,
@@ -95,26 +109,21 @@ def main():
         priority_labels = [priority_map[idx.item()] for idx in priority_indices]
 
 
-        # Prepare JSON data
-        json_data = {}
-        for i in range(33):
-            node_id = str(i + 1)
-            json_data[node_id] = {
-                "class": NODE_TYPE[i],           # from one-time classification
-                "priority": priority_labels[i],     # from priority model
-                "voltage": float(voltage[i]),
-                "load": float(load[i])
-            }
 
-        # Overall comm_mode, or anything else you want at top-level
-        json_data["comm_mode"] = int(mode[0].item())
+        # Load existing JSON data
+        json_data = load_existing_data("node_values.json")
 
-        # Write to file
-        with open("node_values.json", "w") as f:
-            json.dump(json_data, f, indent=2)
+        # Update priority fields
+        json_data = update_priority(json_data, priority_labels)
 
-        # Small delay (e.g., 2 seconds) before next loop
-        time.sleep(1)
+        # Update comm_mode
+        json_data["comm_mode"] = int(mode.numpy()[0])
+
+        # Save updated JSON data
+        save_json_data("node_values.json", json_data)
+
+        # Small delay before next loop
+        time.sleep(2)
 
 if __name__ == "__main__":
     main()

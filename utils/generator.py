@@ -35,7 +35,9 @@ def generate_data(num_nodes, previous_data=None):
         if previous_data is None or node_str not in previous_data:
             # First time initialization
             voltage = 1.0 + np.random.uniform(-0.05, 0.05)  # around 1.0 p.u.
-            load = np.random.uniform(0.2, 1.5)             # random load
+            real_power = np.random.uniform(0.2, 1.5)             # random load
+            reactive_power = np.random.uniform(0.2, 1.5)             # random load
+
             cls = np.random.choice(CLASSES)                # pick a class once
             prio = np.random.choice(PRIORITIES)            # initial priority
         else:
@@ -45,23 +47,27 @@ def generate_data(num_nodes, previous_data=None):
 
             # Slightly adjust voltage
             old_voltage = old_node["voltage"]
-            voltage = old_voltage + np.random.uniform(-0.02, 0.02)
+            voltage = voltage + np.random.uniform(-0.02, 0.02)
             # Clamp voltage between 0.90 and 1.10 for realism
             voltage = max(0.90, min(1.10, voltage))
 
             # Slightly adjust load
-            old_load = old_node["load"]
-            load = old_load + np.random.uniform(-0.1, 0.1)
+            old_real_power = old_node["real_power"]
+            old_reactive_power = old_node["reactive_power"]
+            real_power = old_load + np.random.uniform(-0.1, 0.1)
+            reactive_power = old_load + np.random.uniform(-0.1, 0.1)
             # Clamp load between 0.0 and 2.0 (example range)
-            load = max(0.0, min(2.0, load))
-
+            
+            real_power = max(0.0, min(2.0, real_power))
+            reactive_power = max(0.0, min(2.0, reactive_power))
             # Priority can change each iteration
             prio = np.random.choice(PRIORITIES)
 
         # Construct the per-node data dict
         new_data[node_str] = {
             "voltage": round(float(voltage), 4),
-            "load": round(float(load), 3),
+            "real_power": round(float(real_power), 4),
+            "reactive_power": round(float(real_power), 4),
             "class": cls,
             "priority": prio
         }
